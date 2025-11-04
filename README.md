@@ -1,50 +1,182 @@
-# Welcome to your Expo app 👋
+# 3B — Advanced Todo List Application with Theme Switcher
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This project is an advanced Todo List application built with **React Native (Expo)** and integrated with **Convex** for real-time backend functionality. It features light/dark theme switching, full CRUD operations, and a clean, pixel-perfect UI as per the provided Figma design.
 
-## Get started
+---
 
-1. Install dependencies
+## Table of Contents
 
-   ```bash
-   npm install
-   ```
+- [Figma Design](#figma-design)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Setup Instructions](#setup-instructions)
+- [Running the App](#running-the-app)
+- [Convex Setup](#convex-setup)
+- [Environment Variables](#environment-variables)
+- [Project Structure](#project-structure)
+- [Testing & Deployment](#testing--deployment)
+- [Submission Checklist](#submission-checklist)
 
-2. Start the app
+---
 
-   ```bash
-   npx expo start
-   ```
+## Figma Design
 
-In the output, you'll find options to open the app in a
+The UI design can be found here:  
+[Figma Todo App Design](https://www.figma.com/design/NRbd5hcrQcAa1LBbctUhf9/todo-app?node-id=0-1&p=f&m=dev)
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Features
 
-## Get a fresh project
+### Theme Switcher
 
-When you're ready, run:
+- Light and dark modes
+- Smooth transition animations
+- Persistent theme preference across app restarts
+- Theme affects all UI elements: backgrounds, text, buttons
+
+### Todo CRUD Operations (Using Convex)
+
+### Todo CRUD Operations
+
+- **Read:** `useTodo` fetches todos via Convex queries; optional filtering based on status (`Active` / `Completed`)
+- **Create:** `useCreateTodo` handles adding a new todo, updates UI optimistically
+- **Delete:** `useDeleteTodo` supports deleting single or completed todos with optimistic updates
+- **Update:** handled via toggling `completed` status inside the `ListItem` component
+
+### Filtering & Searching
+
+- Todos can be filtered by:
+  - `All`
+  - `Active` (not completed)
+  - `Completed`
+
+### UI/UX Features
+
+- Search and filter todos (All, Active, Completed)
+- Empty states & loading indicators
+- Drag and sort functionality
+
+### Acceptance Criteria
+
+- Pixel-perfect implementation
+- Smooth theme switching with persistence
+- Full CRUD functionality (real-time via Convex)
+- Proper error handling for network and validation
+- Responsive on all screen sizes
+- Clean, modular code structure
+- Accessibility compliance (contrast, screen reader support)
+
+---
+
+## Tech Stack
+
+- **Frontend:** React Native, Expo, Expo Router, React Navigation
+- **Backend:** Convex (real-time database)
+- **State Management:** React Hooks
+- **Styling:** Styled Components & Theming
+- **Animations:** Reanimated / React Native Gesture Handler
+
+---
+
+## Setup Instructions
+
+1. **Clone the Repository**
 
 ```bash
-npm run reset-project
+git clone <your-github-repo-url>
+cd <project-folder>
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+````
 
-## Learn more
+2. **Install Dependencies**
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+npm install
+# or
+yarn install
+```
+````
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+3. **Start Expo**
 
-## Join the community
+```bash
+npm start
+# or
+yarn start
+```
 
-Join our community of developers creating universal apps.
+4. **Run on Device or Emulator**
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- For iOS: `i` (Expo CLI)
+- For Android: `a` (Expo CLI)
+- For web: `w` (Expo CLI)
+
+---
+
+## Convex Setup
+
+1. Install the Convex CLI:
+
+```bash
+npm install -g convex
+```
+
+2. Login and initialize your Convex project:
+
+```bash
+convex login
+convex init
+```
+
+3. Set up collections:
+
+- `todo` collection with fields:
+  - `title` (string)
+  - `description` (string, optional)
+  - `completed` (boolean)
+  - `createdAt` (timestamp)
+  - `dueDate` (timestamp, optional)
+
+4. Push your functions to Convex:
+
+```bash
+convex dev
+```
+
+5. In the app, update your `api` import to match your Convex project:
+
+```ts
+import { api } from "@/convex/_generated/api";
+```
+
+---
+
+## Environment Variables
+
+Create a `.env` file at the project root if needed:
+
+```env
+CONVEX_PROJECT_URL=<your-convex-project-url>
+```
+
+> Ensure this URL is correctly referenced in your Convex client configuration.
+
+---
+
+## Project Structure
+
+```
+├── app/                   # Main app components
+├── assets/                # Images and fonts
+├── components/            # Reusable UI components
+│   └── ui/
+├── hooks/                 # Custom React hooks
+├── convex/                # Convex queries and mutations
+├── utils.ts                 # Utility functions
+├── App.tsx                # Entry point
+├── README.md
+├── package.json
+└── tsconfig.json
+```
