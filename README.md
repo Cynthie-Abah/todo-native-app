@@ -1,4 +1,4 @@
-# 3B — Advanced Todo List Application with Theme Switcher
+# 3B — Todo List Application with Theme Switcher
 
 This project is an advanced Todo List application built with **React Native (Expo)** and integrated with **Convex** for real-time backend functionality. It features light/dark theme switching, full CRUD operations, and a clean, pixel-perfect UI as per the provided Figma design.
 
